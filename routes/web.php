@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Http;
 
 Route::get('/', function () {
 
-    // Aumentamos el tiempo de espera de la petición principal
     $response = Http::timeout(20)->get('https://pokeapi.co/api/v2/pokemon?limit=20');
     $lista = $response->json()['results'];
 
@@ -13,7 +12,6 @@ Route::get('/', function () {
 
     foreach ($lista as $index => $pk) {
 
-        // Agregamos timeout a cada petición individual
         $data = Http::timeout(20)->get($pk['url'])->json();
 
         $pokemones[] = [
